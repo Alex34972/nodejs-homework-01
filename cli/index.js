@@ -48,12 +48,16 @@ function invokeAction({ action, id, name, email, phone }) {
     case "remove":
       removeContact(id)
         .then((contacts) => {
-          console.log(
-            chalk.blueBright(
-              `Contact with such id = "${id}" deleted! New list of contacts: `
-            )
-          );
-          console.table(contacts);
+          if (contacts === false) {
+            console.log(chalk.yellow("ID NOT FOUND"));
+          } else {
+            console.log(
+              chalk.blueBright(
+                `Contact with id = "${id}" deleted! New list of contacts: `
+              )
+            );
+            console.table(contacts);
+          }
         })
         .catch((error) => console.log(error));
       break;
