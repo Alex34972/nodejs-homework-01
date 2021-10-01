@@ -21,17 +21,24 @@ async function getContactById(contactId) {
   return result;
 }
 
-function removeContact(contactId) {
-  // ...твой код
+async function removeContact(contactId) {
+  const contacts = await readContact();
+  const newContacts = contacts.filter((contact) => contact.id !== contactId);
+  contacts.push(newContacts);
+  await fs.writeFile(
+    contactsPath.join(__dirname, "contacts.json"),
+    JSON.stringify(newContacts, null, 2)
+  );
+  return newContacts;
 }
 
 async function addContact(name, email, phone) {
-  const connacts = await readContact();
+  const contacts = await readContact();
   const newContact = { id: crypto.randomUUID(), name, email, phone };
-  connacts.push(newContact);
+  contacts.push(newContact);
   await fs.writeFile(
     contactsPath.join(__dirname, "contacts.json"),
-    JSON.stringify(connacts, null, 2)
+    JSON.stringify(contacts, null, 2)
   );
   return newContact;
 }

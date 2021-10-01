@@ -1,6 +1,11 @@
 const { Command } = require("commander");
 const chalk = require("chalk");
-const { listContacts, addContact, getContactById } = require("./contact");
+const {
+  listContacts,
+  addContact,
+  getContactById,
+  removeContact,
+} = require("./contact");
 const program = new Command();
 program
   .option("-a, --action <type>", "choose action")
@@ -41,7 +46,16 @@ function invokeAction({ action, id, name, email, phone }) {
       break;
 
     case "remove":
-      // ... id
+      removeContact(id)
+        .then((contacts) => {
+          console.log(
+            chalk.blueBright(
+              `Contact with such id = "${id}" deleted! New list of contacts: `
+            )
+          );
+          console.table(contacts);
+        })
+        .catch((error) => console.log(error));
       break;
 
     default:
