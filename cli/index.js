@@ -1,6 +1,6 @@
 const { Command } = require("commander");
-const chalk = require("chalc");
-const { listContacts } = require("./contact");
+//const chalk = require("chalc");
+const { listContacts, addContact } = require("./contact");
 const program = new Command();
 program
   .option("-a, --action <type>", "choose action")
@@ -17,9 +17,9 @@ const argv = program.opts();
 function invokeAction({ action, id, name, email, phone }) {
   switch (action) {
     case "list":
-      listContacts().then((contacts) =>
-        console.table(contacts).catch(console.error)
-      );
+      listContacts()
+        .then((contacts) => console.table(contacts))
+        .catch((error) => console.log(error));
       break;
 
     case "get":
@@ -27,7 +27,9 @@ function invokeAction({ action, id, name, email, phone }) {
       break;
 
     case "add":
-      // ... name email phone
+      addContact(name, email, phone)
+        .then((contacts) => console.table(contacts))
+        .catch((error) => console.log(error));
       break;
 
     case "remove":

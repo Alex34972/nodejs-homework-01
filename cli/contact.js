@@ -7,17 +7,12 @@ const readContact = async () => {
     contactsPath.join(__dirname, "contacts.json"),
     "utf8"
   );
-
   const contacts = JSON.parse(res);
   return contacts;
 };
 
 function listContacts() {
   return readContact();
-}
-
-function readContact() {
-  // ...твой код
 }
 
 function getContactById(contactId) {
@@ -28,8 +23,15 @@ function removeContact(contactId) {
   // ...твой код
 }
 
-function addContact(name, email, phone) {
-  // ...твой код
+async function addContact(name, email, phone) {
+  const connacts = await readContact();
+  const newContact = { id: crypto.randomUUID(), name, email, phone };
+  connacts.push(newContact);
+  await fs.writeFile(
+    contactsPath.join(__dirname, "contacts.json"),
+    JSON.stringify(connacts, null, 2)
+  );
+  return newContact;
 }
 module.exports = {
   listContacts,

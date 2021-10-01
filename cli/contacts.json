@@ -1,1 +1,14 @@
-[]
+[
+  {
+    "id": "20d919a0-60db-4c7d-9834-5d0e3a1d9c29",
+    "name": "Mango",
+    "email": "mango@gmail.com",
+    "phone": "322-22-22"
+  },
+  {
+    "id": "c342817d-d8ac-4c60-ae02-2539d83aa29e",
+    "name": "Mango",
+    "email": "mango@gmail.com",
+    "phone": "322-22-22"
+  }
+]
