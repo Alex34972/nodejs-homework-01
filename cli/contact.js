@@ -15,8 +15,10 @@ function listContacts() {
   return readContact();
 }
 
-function getContactById(contactId) {
-  // ...твой код
+async function getContactById(contactId) {
+  const contacts = await readContact();
+  const [result] = contacts.filter((contact) => contact.id === contactId);
+  return result;
 }
 
 function removeContact(contactId) {

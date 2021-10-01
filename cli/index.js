@@ -1,6 +1,6 @@
 const { Command } = require("commander");
-//const chalk = require("chalc");
-const { listContacts, addContact } = require("./contact");
+const chalk = require("chalk");
+const { listContacts, addContact, getContactById } = require("./contact");
 const program = new Command();
 program
   .option("-a, --action <type>", "choose action")
@@ -23,7 +23,15 @@ function invokeAction({ action, id, name, email, phone }) {
       break;
 
     case "get":
-      // ... id
+      getContactById(id)
+        .then((contact) => {
+          if (contact) {
+            console.log(contact);
+          } else {
+            console.log(chalk.yellow("CONTACT NOT FOUND"));
+          }
+        })
+        .catch((error) => console.log(error));
       break;
 
     case "add":
@@ -37,7 +45,7 @@ function invokeAction({ action, id, name, email, phone }) {
       break;
 
     default:
-      console.warn("\x1B[31m Unknown action type!");
+      console.warn(chalk.red("Unknown action type!"));
   }
 }
 
