@@ -1,16 +1,20 @@
-// contacts.js
 const fs = require("fs/promises");
 const contactsPath = require("path");
 const crypto = require("crypto");
 
-const listContacts = async () => {
+const readContact = async () => {
   const res = await fs.readFile(
     contactsPath.join(__dirname, "contacts.json"),
     "utf8"
   );
+
   const contacts = JSON.parse(res);
   return contacts;
 };
+
+function listContacts() {
+  return readContact();
+}
 
 function readContact() {
   // ...твой код
@@ -29,7 +33,6 @@ function addContact(name, email, phone) {
 }
 module.exports = {
   listContacts,
-  readContact,
   getContactById,
   removeContact,
   addContact,
